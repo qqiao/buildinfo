@@ -14,8 +14,24 @@
 
 package buildinfo
 
+import (
+	"encoding/json"
+	"io/ioutil"
+)
+
 // BuildInfo is the data element representing information for a build.
 type BuildInfo struct {
 	BuildTime int64  `json:"buildTime"`
 	Revision  string `json:"revision"`
+}
+
+// Load loads the build info from the given path.
+func Load(path string) (BuildInfo, error) {
+	var buildInfo BuildInfo
+	file, err := ioutil.ReadFile("build_info.json")
+	if err != nil {
+		return buildInfo, err
+	}
+
+	return buildInfo, json.Unmarshal(file, &buildInfo)
 }
