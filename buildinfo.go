@@ -28,7 +28,7 @@ type BuildInfo struct {
 // Load loads the build info from the given path.
 func Load(path string) (BuildInfo, error) {
 	var buildInfo BuildInfo
-	file, err := ioutil.ReadFile("build_info.json")
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		return buildInfo, err
 	}
