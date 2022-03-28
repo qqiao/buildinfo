@@ -15,6 +15,7 @@
 package buildinfo_test
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -24,6 +25,28 @@ import (
 var expected = &buildinfo.BuildInfo{
 	BuildTime: 1648396360413459000,
 	Revision:  "e594b8e",
+}
+
+func ExampleLoad() {
+	buildInfo, err := buildinfo.Load("./test_data.json")
+	if err != nil {
+		// Handle the loading error
+	} else {
+		// Use/store the buildInfo
+		fmt.Println(buildInfo.Revision)
+	}
+}
+
+func ExampleLoadAsync() {
+	buildInfoCh, errCh := buildinfo.LoadAsync("./test_data.json")
+
+	select {
+	case <-errCh:
+		// Handle the loading error
+	case buildInfo := <-buildInfoCh:
+		// Use/store the buildInfo
+		fmt.Println(buildInfo.Revision)
+	}
 }
 
 func TestLoad(t *testing.T) {
