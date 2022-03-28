@@ -25,13 +25,39 @@ type BuildInfo struct {
 	Revision  string `json:"revision"`
 }
 
-// Load loads the build info from the given path.
-func Load(path string) (BuildInfo, error) {
+// Load loads the build information from the given path.
+func Load(path string) (*BuildInfo, error) {
 	var buildInfo BuildInfo
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
-		return buildInfo, err
+		return nil, err
 	}
 
-	return buildInfo, json.Unmarshal(file, &buildInfo)
+	if err := json.Unmarshal(file, &buildInfo); err != nil {
+		return nil, err
+	}
+
+	return &buildInfo, nil
+}
+
+// LoadAsync loads the build information from the given path.
+//
+// This function internally invokes the Load funtion in a separate goroutine.
+// This allows the slow file I/O and JSON unmarshalling to be parallelized.
+func LoadAsync(path string) (<-chan *BuildInfo, <-chan error) {
+	out := make(chan *BuildInfo)
+	errs := make(chan error)
+
+	go func() {
+		defer close(out)
+		defer close(errs)
+
+		if buildInfo, err := Load(path); err != nil {
+			errs <- err
+		} else {
+			out <- buildInfo
+		}
+	}()
+
+	return out, errs
 }
