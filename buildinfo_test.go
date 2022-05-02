@@ -35,6 +35,8 @@ func ExampleLoad() {
 		// Use/store the buildInfo
 		fmt.Println(buildInfo.Revision)
 	}
+
+	// Output: e594b8e
 }
 
 func ExampleLoadAsync() {
@@ -47,6 +49,8 @@ func ExampleLoadAsync() {
 		// Use/store the buildInfo
 		fmt.Println(buildInfo.Revision)
 	}
+
+	// Output: e594b8e
 }
 
 func TestLoad(t *testing.T) {
