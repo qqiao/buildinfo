@@ -15,7 +15,7 @@
 /*
 
 Package buildinfo contains helper functions to help embed build information
-into an application.
+into applications.
 
 */
 package buildinfo
