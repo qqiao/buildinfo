@@ -16,7 +16,7 @@ package buildinfo // import "github.com/qqiao/buildinfo"
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 // BuildInfo is the data element representing information for a build.
@@ -28,7 +28,7 @@ type BuildInfo struct {
 // Load loads the build information from the given path.
 func Load(path string) (*BuildInfo, error) {
 	var buildInfo BuildInfo
-	file, err := ioutil.ReadFile(path)
+	file, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
