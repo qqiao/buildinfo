@@ -1,6 +1,7 @@
 # buildinfo
 
-Buildinfo is a library that provides an easy solution to embed build information into any applications.
+Buildinfo is a library that provides an easy solution to embed build
+information into applications.
 
 ### Installation
 
@@ -11,4 +12,6 @@ The `buildinfo` package is a go module, so simply using:
 in your application's go module should make it available.
 
 ### Usage
-Please refer to [source code documentation](https://pkg.go.dev/github.com/qqiao/buildinfo) for usage examples.
+
+Please refer to [source code documentation](https://pkg.go.dev/github.com/qqiao/buildinfo)
+for API documentation and examples.
