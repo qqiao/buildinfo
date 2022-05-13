@@ -43,7 +43,7 @@ func Load(path string) (*BuildInfo, error) {
 // LoadAsync loads the build information from the given path.
 //
 // This function internally invokes the Load funtion in a separate goroutine.
-// This allows the slow file I/O and JSON unmarshalling to be parallelized.
+// This allows the slow file I/O and JSON unmarshalling to be run concurrently.
 func LoadAsync(path string) (<-chan *BuildInfo, <-chan error) {
 	out := make(chan *BuildInfo)
 	errs := make(chan error)
